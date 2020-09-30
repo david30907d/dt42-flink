@@ -31,6 +31,7 @@ jobs:
         run: |
           cd flink-docker-compose
           docker-compose up -d
+          sleep 20
           curl -X POST -H "Expect:" -F "jarfile=@/home/runner/work/dt42-flink/dt42-flink/dt42_flink_jar/dt42_flink-0.1.jar" http://0.0.0.0:8081/jars/upload
           # curl -X POST http://localhost:8081/jars/500ce995-6675-45a5-a472-e8bcae4dfc9c_dt42_flink-0.1.jar/run -d '{"parallelism": 1, "programArgs": "", "savepointPath": ""}'
           [ $? -eq 0 ] || exit 1
