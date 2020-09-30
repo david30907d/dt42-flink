@@ -26,13 +26,11 @@ jobs:
         run: |
           cd dt42_flink_jar
           mvn package -Dmaven.test.skip=true
-          pwd
-          echo $(pwd)
 
-      - name: Run end-to-end testing
+      - name: Run end-to-end flink testing
         run: |
           cd flink-docker-compose
           docker-compose up -d
-          # curl -X POST -H "Expect:" -F "jarfile=@/Users/mac/htdocs/dt42/dt42-flink/dt42_flink_jar/target/dt42_flink-0.1.jar" http://0.0.0.0:8081/jars/upload
+          curl -X POST -H "Expect:" -F "jarfile=@/home/runner/work/dt42-flink/dt42-flink/dt42_flink_jar/dt42_flink-0.1.jar" http://0.0.0.0:8081/jars/upload
           # curl -X POST http://localhost:8081/jars/500ce995-6675-45a5-a472-e8bcae4dfc9c_dt42_flink-0.1.jar/run -d '{"parallelism": 1, "programArgs": "", "savepointPath": ""}'
           [ $? -eq 0 ] || exit 1
