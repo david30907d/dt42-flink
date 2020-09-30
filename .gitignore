@@ -1,3 +1,6 @@
+# project stuff
+.metals
+
 # npm stuff
 node_modules/
 
