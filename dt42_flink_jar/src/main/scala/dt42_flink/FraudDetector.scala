@@ -29,7 +29,7 @@ import org.apache.flink.walkthrough.common.entity.Transaction
 object FraudDetector {
   val SMALL_AMOUNT: Double = 1.00
   val LARGE_AMOUNT: Double = 500.00
-  val ONE_MINUTE: Long     = 60 * 1000L
+  val ONE_MINUTE: Long = 60 * 1000L
 }
 
 @SerialVersionUID(1L)
@@ -39,7 +39,8 @@ class FraudDetector extends KeyedProcessFunction[Long, Transaction, Alert] {
   def processElement(
       transaction: Transaction,
       context: KeyedProcessFunction[Long, Transaction, Alert]#Context,
-      collector: Collector[Alert]): Unit = {
+      collector: Collector[Alert]
+  ): Unit = {
 
     val alert = new Alert
     alert.setId(1111)
