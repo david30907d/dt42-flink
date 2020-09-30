@@ -1,4 +1,5 @@
-# Scala Project Template [![Build Status](https://travis-ci.com/david30907d/pyproject_template.svg?branch=master)](https://travis-ci.com/github/david30907d/pyproject_template)
+# Scala Project Template 
+![Docker Image CI](https://github.com/david30907d/dt42-flink/workflows/Docker%20Image%20CI/badge.svg)
 
 ## Install
 
