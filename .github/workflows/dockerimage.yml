@@ -1,0 +1,38 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: 
+      - '*'
+env:
+  RC_NAME: davidtnfsh/dt42-flink
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Build with Maven
+        run: |
+          cd dt42_flink_jar
+          mvn package -Dmaven.test.skip=true
+          pwd
+          echo $(pwd)
+
+      - name: Run end-to-end testing
+        run: |
+          cd flink-docker-compose
+          docker-compose up -d
+          # curl -X POST -H "Expect:" -F "jarfile=@/Users/mac/htdocs/dt42/dt42-flink/dt42_flink_jar/target/dt42_flink-0.1.jar" http://0.0.0.0:8081/jars/upload
+          # curl -X POST http://localhost:8081/jars/500ce995-6675-45a5-a472-e8bcae4dfc9c_dt42_flink-0.1.jar/run -d '{"parallelism": 1, "programArgs": "", "savepointPath": ""}'
+          [ $? -eq 0 ] || exit 1
